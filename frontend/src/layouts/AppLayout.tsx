@@ -37,7 +37,7 @@ export const AppLayout: React.FC = () => {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const sidebarItems: SidebarItem[] = [
-    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Dashboard', path: user?.role === 'admin' ? '/admin/dashboard' : '/dashboard', icon: LayoutDashboard },
     { name: 'Employees', path: '/admin/employees', icon: Users, adminOnly: true },
     { name: 'My Profile', path: '/profile', icon: User },
     { name: 'Attendance', path: '/attendance', icon: CalendarCheck },
@@ -49,7 +49,7 @@ export const AppLayout: React.FC = () => {
     { name: 'AI Insights', path: '/insights', icon: BrainCircuit },
     { name: 'HR Analytics', path: '/admin/analytics', icon: BarChart3, adminOnly: true },
     { name: 'AI HR Assistant', path: '/admin/ai-assistant', icon: MessageSquare, adminOnly: true },
-    { name: 'Notifications', path: '/notifications', icon: Bell },
+    { name: 'Notifications', path: user?.role === 'admin' ? '/admin/notifications' : '/notifications', icon: Bell },
     { name: 'Settings', path: '/settings', icon: SettingsIcon },
   ];
 
@@ -58,9 +58,16 @@ export const AppLayout: React.FC = () => {
     navigate('/');
   };
 
-  const handleRoleToggle = () => {
+  const handleRoleToggle = async () => {
     const nextRole = user?.role === 'admin' ? 'employee' : 'admin';
-    login(nextRole);
+    logout();
+    try {
+      const email = nextRole === 'admin' ? 'admin@dayflow.com' : 'employee@dayflow.com';
+      await login(email, 'password123');
+      navigate(nextRole === 'admin' ? '/admin/dashboard' : '/dashboard');
+    } catch (err) {
+      navigate('/');
+    }
   };
 
   // Filter items based on user role
@@ -292,7 +299,7 @@ export const AppLayout: React.FC = () => {
                     </div>
                   </div>
                   <div className="px-4 pt-2 text-center">
-                    <Link to="/notifications" onClick={() => setNotificationsOpen(false)} className="text-xs font-semibold text-teal-600 hover:underline">
+                    <Link to={user?.role === 'admin' ? '/admin/notifications' : '/notifications'} onClick={() => setNotificationsOpen(false)} className="text-xs font-semibold text-teal-600 hover:underline">
                       See all notifications
                     </Link>
                   </div>
