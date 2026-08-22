@@ -12,6 +12,14 @@ class Settings(BaseSettings):
         validation_alias="DATABASE_URL"
     )
 
+    # JWT Authentication settings
+    SECRET_KEY: str = Field(
+        default="df82a7f5a31e8bde9024f92c10b7a8d9aef1e0d37e6f1f3e098a76d54c3e210a",  # Secure default for local dev
+        validation_alias="SECRET_KEY"
+    )
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+
     # Use pydantic-settings model configuration to load env files
     model_config = SettingsConfigDict(
         env_file=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env"),

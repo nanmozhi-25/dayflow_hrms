@@ -8,6 +8,9 @@ import logging
 from backend.app.core.config import settings
 from backend.app.db.session import engine, get_db
 from backend.app.db.base import Base
+from backend.app.api.endpoints.auth import router as auth_router
+from backend.app.api.endpoints.employees import router as employees_router
+from backend.app.api.endpoints.attendance import router as attendance_router
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -41,6 +44,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register routers
+app.include_router(auth_router, prefix=f"{settings.API_V1_STR}/auth", tags=["Authentication"])
+app.include_router(employees_router, prefix=f"{settings.API_V1_STR}/employees", tags=["Employees"])
+app.include_router(attendance_router, prefix=f"{settings.API_V1_STR}/attendance", tags=["Attendance"])
 
 @app.get("/")
 def read_root():
