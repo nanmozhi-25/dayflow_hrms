@@ -20,7 +20,15 @@ export interface Employee {
   designation: string;
   phone?: string;
   join_date: string;
-  status: 'active' | 'inactive' | 'suspended';
+  status: 'active' | 'inactive' | 'terminated';
+  address?: string;
+  profile_picture?: string;
+  reporting_manager?: string;
+  basic_salary: number;
+  allowances: number;
+  deductions: number;
+  net_salary: number;
+  documents?: Record<string, any>;
   created_at: string;
   updated_at?: string;
 }

@@ -3,16 +3,13 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import {
   Clock,
-  MapPin,
   CalendarCheck,
   TrendingUp,
   Award,
   Filter,
   RefreshCw,
   CheckCircle,
-  XCircle,
   AlertTriangle,
-  UserCheck,
   Edit2,
   CalendarDays,
   X
@@ -38,7 +35,7 @@ interface AttendanceLog {
 }
 
 export const Attendance = () => {
-  const { user, employee } = useAuth();
+  const { user } = useAuth();
   
   // Tabs
   const [activeTab, setActiveTab] = useState<'my' | 'admin'>('my');
@@ -384,6 +381,13 @@ export const Attendance = () => {
               </button>
             </div>
 
+            {myError && (
+              <div className="p-3 mb-4 bg-red-50 border border-red-200 text-red-600 rounded-lg font-semibold flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                <span>{myError}</span>
+              </div>
+            )}
+
             {isMyLoading ? (
               <div className="flex justify-center items-center py-10">
                 <div className="h-8 w-8 border-4 border-slate-200 border-t-teal-600 rounded-full animate-spin"></div>
@@ -523,6 +527,13 @@ export const Attendance = () => {
                     <RefreshCw className="h-4 w-4" />
                   </button>
                 </div>
+
+                {adminError && (
+                  <div className="p-3 mb-4 bg-red-50 border border-red-200 text-red-600 rounded-lg font-semibold flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 shrink-0" />
+                    <span>{adminError}</span>
+                  </div>
+                )}
 
                 {isAdminLoading ? (
                   <div className="flex justify-center items-center py-10">

@@ -8,7 +8,6 @@ import { AdminDashboard } from '../pages/AdminDashboard';
 import { Employees } from '../pages/Employees';
 import { Profile } from '../pages/Profile';
 import { Attendance } from '../pages/Attendance';
-import { AdminAttendance } from '../pages/AdminAttendance';
 import { Leave } from '../pages/Leave';
 import { AdminLeaves } from '../pages/AdminLeaves';
 import { Payroll } from '../pages/Payroll';
@@ -181,7 +180,7 @@ export const AppRoutes: React.FC = () => {
           path="admin/attendance"
           element={
             <RoleGuard roles={['admin']}>
-              <AdminAttendance />
+              <Attendance />
             </RoleGuard>
           }
         />

@@ -15,8 +15,7 @@ import {
   X,
   CheckCircle,
   FileDown,
-  Lock,
-  UploadCloud
+  Lock
 } from 'lucide-react';
 
 export const Profile = () => {
@@ -36,7 +35,7 @@ export const Profile = () => {
   const [adminLastName, setAdminLastName] = useState(employee?.last_name || '');
   const [adminDept, setAdminDept] = useState(employee?.department || '');
   const [adminDesig, setAdminDesig] = useState(employee?.designation || '');
-  const [adminStatus, setAdminStatus] = useState(employee?.status || 'active');
+  const [adminStatus, setAdminStatus] = useState<string>(employee?.status || 'active');
   const [adminManager, setAdminManager] = useState(employee?.reporting_manager || '');
   const [adminBasicSalary, setAdminBasicSalary] = useState(employee?.basic_salary || 0);
   const [adminAllowances, setAdminAllowances] = useState(employee?.allowances || 0);
