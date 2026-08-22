@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-primary-50: #f0f4f8;
+  --color-primary-100: #dbeafe;
+  --color-primary-600: #1e3a8a; /* Professional Navy */
+  --color-primary-700: #1d4ed8;
+  --color-accent: #0f766e; /* Elegant Teal Accent */
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-slate-50 text-slate-900 antialiased selection:bg-teal-100 selection:text-teal-900;
+  }
+}
+
+/* Custom scrollbars for a premium feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Premium shadows & animations */
+.premium-card {
+  @apply bg-white border border-slate-100 rounded-xl shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-200/80;
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f766e 100%);
+}
