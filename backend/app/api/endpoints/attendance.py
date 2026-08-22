@@ -103,7 +103,9 @@ def check_out(
 
     # Calculate hours
     attendance_record.check_out = now_utc
-    delta = now_utc - attendance_record.check_in
+    in_naive = attendance_record.check_in.replace(tzinfo=None) if attendance_record.check_in.tzinfo else attendance_record.check_in
+    now_naive = now_utc.replace(tzinfo=None)
+    delta = now_naive - in_naive
     working_hours = round(delta.total_seconds() / 3600.0, 2)
     attendance_record.working_hours = working_hours
 
@@ -185,7 +187,9 @@ def correct_attendance_by_admin(
 
     if ("check_in" in update_data or "check_out" in update_data) and "working_hours" not in update_data:
         if check_in_time and check_out_time:
-            delta = check_out_time - check_in_time
+            in_naive = check_in_time.replace(tzinfo=None) if check_in_time.tzinfo else check_in_time
+            out_naive = check_out_time.replace(tzinfo=None) if check_out_time.tzinfo else check_out_time
+            delta = out_naive - in_naive
             update_data["working_hours"] = round(delta.total_seconds() / 3600.0, 2)
 
     for field, value in update_data.items():
